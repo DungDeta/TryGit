@@ -25,4 +25,28 @@ impl <T> BT<T> where T:Ord
             right:None,
         }
     }
+    pub fn search(&self,vaule: &T)->bool
+    {
+    match &self.value {
+        Some(key) =>
+            {
+                match key.cmp(vaule) {
+                    Ordering::Equal => return true,
+                    Ordering::Greater => {
+                        match &self.left {
+                            Some(node) => node.search(vaule),
+                            None => false,
+                        }
+                    },
+                    Ordering::Less => {
+                        match &self.right {
+                            Some(node) => node.search(vaule),
+                            None => false,
+                        }
+                    },
+                }
+            }
+        None => false,
+    }
+    }
 }
